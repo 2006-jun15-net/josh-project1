@@ -4,12 +4,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project1.WebApp", "Project1.WebApp\Project1.WebApp.csproj", "{E010EBB7-7190-47A1-8878-FB194841F968}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1CB355A7-58E9-4004-AA6C-44DA954A22A5} = {1CB355A7-58E9-4004-AA6C-44DA954A22A5}
+		{0A92FDDD-0BB9-4BC1-868A-FA3C69249454} = {0A92FDDD-0BB9-4BC1-868A-FA3C69249454}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project1.Library", "Project1.Library\Project1.Library.csproj", "{0A92FDDD-0BB9-4BC1-868A-FA3C69249454}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project1.Library", "Project1.Library\Project1.Library.csproj", "{0A92FDDD-0BB9-4BC1-868A-FA3C69249454}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project1.DataAccess", "Project1.DataAccess\Project1.DataAccess.csproj", "{1CB355A7-58E9-4004-AA6C-44DA954A22A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project1.DataAccess", "Project1.DataAccess\Project1.DataAccess.csproj", "{1CB355A7-58E9-4004-AA6C-44DA954A22A5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0A92FDDD-0BB9-4BC1-868A-FA3C69249454} = {0A92FDDD-0BB9-4BC1-868A-FA3C69249454}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project1.Tests", "Project1.Tests\Project1.Tests.csproj", "{FC291EA0-CE6B-41EE-80B5-CCAB153EF237}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project1.Tests", "Project1.Tests\Project1.Tests.csproj", "{FC291EA0-CE6B-41EE-80B5-CCAB153EF237}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
