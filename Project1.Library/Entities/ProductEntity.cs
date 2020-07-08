@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Project1.Library.Entities
 {
-    class Product
+    /// <summary>
+    /// Product object.
+    /// </summary>
+    public class ProductEntity
     {
         /// <summary>
         /// Unique Id of product created when added to DB.
@@ -25,7 +28,7 @@ namespace Project1.Library.Entities
         /// <param name="id"></param>
         /// <param name="description"></param>
         /// <param name="price"></param>
-        public Product(int id, string description, double price)
+        public ProductEntity(int id, string description, double price)
         {
             ProductId = id;
             ProductDescription = description;
@@ -37,7 +40,7 @@ namespace Project1.Library.Entities
         /// </summary>
         /// <param name="description"></param>
         /// <param name="price"></param>
-        public Product(string description, double price)
+        public ProductEntity(string description, double price)
         {
             ProductDescription = description;
             ProductPrice = price;

@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Project1.Library.Entities
 {
-    class Store
+    /// <summary>
+    /// Store object.
+    /// </summary>
+    public class StoreEntity
     {
         /// <summary>
         /// Unique Id for a store.
@@ -27,7 +30,7 @@ namespace Project1.Library.Entities
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="address"></param>
-        public Store(int id, string name, string address)
+        public StoreEntity(int id, string name, string address)
         {
             StoreId = id;
             StoreName = name;
@@ -39,7 +42,7 @@ namespace Project1.Library.Entities
         /// </summary>
         /// <param name="name"></param>
         /// <param name="address"></param>
-        public Store(string name, string address)
+        public StoreEntity(string name, string address)
         {
             StoreName = name;
             StoreAddress = address;

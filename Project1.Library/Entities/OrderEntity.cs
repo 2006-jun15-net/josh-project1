@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Project1.Library.Entities
 {
-    class Order
+    class OrderEntity
     {
         /// <summary>
         /// 
@@ -22,10 +22,10 @@ namespace Project1.Library.Entities
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<Product, int> Orders { get; set; }
+        public Dictionary<ProductEntity, int> Orders { get; set; }
 
 
-        public Order(int orderid, int storeid, int custid)
+        public OrderEntity(int orderid, int storeid, int custid)
         {
             OrderId = orderid;
             StoreId = storeid;

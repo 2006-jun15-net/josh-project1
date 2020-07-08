@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Project1.Library.Entities
 {
-    class Customer : ICustomer
+    /// <summary>
+    /// Customer class to create a new Customer object. 
+    /// </summary>
+    public class CustomerEntity : ICustomer
     {
         public int CustomerId { get; set; }
         public string FirstName { get; set; }
@@ -18,7 +21,7 @@ namespace Project1.Library.Entities
         /// <param name="first"></param>
         /// <param name="last"></param>
         /// <param name="user"></param>
-        public Customer(int id, string first, string last, string user)
+        public CustomerEntity(int id, string first, string last, string user)
         {
             CustomerId = id;
             FirstName = first;
@@ -32,7 +35,7 @@ namespace Project1.Library.Entities
         /// <param name="first"></param>
         /// <param name="last"></param>
         /// <param name="user"></param>
-        public Customer(string first, string last, string user)
+        public CustomerEntity(string first, string last, string user)
         {
             FirstName = first;
             LastName = last;
