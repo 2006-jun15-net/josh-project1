@@ -42,7 +42,7 @@ jobs:
 
   - script: dotnet publish -c Release -o ../publish
     displayName: dotnet publish
-    #workingDirectory: $(solutionPath)
+    workingDirectory: $(solutionPath)
 
   - task: AzureRmWebAppDeployment@4
     inputs:
