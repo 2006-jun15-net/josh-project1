@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  solutionPath: ./
+
 jobs:
 - job: 
   pool:
@@ -36,3 +39,15 @@ jobs:
       testRunTitle: 'windows'
       platform: 'Any CPU'
       configuration: 'Release'
+
+  - script: dotnet publish -c Release -o ../publish
+    displayName: dotnet publish
+    workingDirectory: $(solutionPath)
+
+  - task: AzureRmWebAppDeployment@4
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: 'Azure subscription 1(e8660cf1-4aa2-42f9-a6c8-6ded191f7438)'
+      appType: 'webApp'
+      WebAppName: 'bertrand-proj1'
+      packageForLinux: '$(System.DefaultWorkingDirectory)/publish'
