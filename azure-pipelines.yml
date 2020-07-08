@@ -22,10 +22,28 @@ jobs:
       command: 'restore'
       restoreSolution: '**/*.sln'
       feedsToUse: 'select'
-      
+
+  - task: SonarCloudPrepare@1
+    displayName: Prepare Sonarcloud analysis
+    inputs:
+      SonarCloud: 'sonarcloud-RedNarwhal'
+      organization: '2006-jun15-net'
+      scannerMode: 'MSBuild'
+      projectKey: '2006-jun15-net_josh-project1'
+      projectName: 'Josh Project 1'
+      projectVersion: '0.5'
+
   - task: VSBuild@1
     inputs:
       solution: '**\*.sln'
+
+  - task: SonarCloudAnalyze@1
+    displayName: Run Sonarcloud analysis
+
+  - task: SonarCloudPublish@1
+    displayName: Publish Sonarcloud result
+    inputs:
+      pollingTimeoutSec: '300'
 
   - task: VSTest@2
     inputs:
