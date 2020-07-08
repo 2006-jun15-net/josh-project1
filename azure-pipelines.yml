@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  solutionPath: Project1
+  solutionPath: ./
 
 jobs:
 - job: 
