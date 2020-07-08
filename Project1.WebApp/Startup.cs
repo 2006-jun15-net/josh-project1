@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Project1.DataAccess.Model;
 
 namespace Project1.WebApp
 {
@@ -24,8 +26,8 @@ namespace Project1.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<project1Context>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+            services.AddDbContext<project1Context>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
 
             services.AddControllersWithViews();
         }
