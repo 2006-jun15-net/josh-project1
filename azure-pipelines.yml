@@ -58,11 +58,9 @@ jobs:
       platform: 'Any CPU'
       configuration: 'Release'
 
-  
-
-  - script: dotnet publish -c Release -o ../publish
-    displayName: dotnet publish
-    workingDirectory: $(solutionPath)
+  # - script: dotnet publish -c Release -o ../publish
+  #   displayName: dotnet publish
+  #   workingDirectory: $(solutionPath)
 
   # - task: AzureRmWebAppDeployment@4
   #   inputs:
