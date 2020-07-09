@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Project1.DataAccess;
+using Project1.Library.Entities;
+using Project1.WebApp.ViewModels;
 
 namespace Project1.WebApp.Controllers
 {
@@ -16,9 +18,17 @@ namespace Project1.WebApp.Controllers
             Repo = repo ?? throw new ArgumentNullException(nameof(repo));
 
         // GET: CustomerController
-        public ActionResult Index()
+        public ActionResult Index([FromQuery]string search = "")
         {
-            return View();
+            IEnumerable<CustomerEntity> customers = (IEnumerable<CustomerEntity>)Repo.GetAll(search);
+            IEnumerable<CustomerViewModel> viewModels = customers.Select(x => new CustomerViewModel
+            {
+                Id = x.CustomerId,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                UserName = x.UserName
+            });
+            return View(viewModels);
         }
 
         // GET: CustomerController/Details/5

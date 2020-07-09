@@ -25,12 +25,16 @@ namespace Project1.DataAccess
             Save();
         }
 
-        public IEnumerable<Customer> GetAll()
+        public IEnumerable<CustomerEntity> GetAll(string search)
         {
-            IQueryable<Customer> items = _dbContext.Customer
-                .Include(c => c.CustomerId);
+            IQueryable<Customer> items = _dbContext.Customer;
 
-            return (IEnumerable<Customer>)items.Select(Mapper.MapDbEntryToCustomer);
+            if (search != null)//If there is a search term
+            {
+                items = items.Where(c => c.UserName.Contains(search));
+            }
+            
+            return (IEnumerable<CustomerEntity>)items.Select(Mapper.MapDbEntryToCustomer);
         }
 
         public CustomerEntity GetById(object id)
