@@ -42,14 +42,6 @@ namespace Project1.DataAccess
                 return Mapper.MapDbEntryToCustomer(customer: _dbContext.Customer.Find(id));  
         }
 
-        //public CustomerEntity GetCustomerById(int id)
-        //{
-        //    Customer customer = _dbContext.Customer
-        //        .FirstOrDefault(c => c.CustomerId == id);
-
-        //    return Mapper.MapDbEntryToCustomer(customer);
-        //}
-
         public void Insert(CustomerEntity obj)
         {
             Customer entity = Mapper.MapCustomerToDbEntry(obj);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Project1.DataAccess;
 using Project1.DataAccess.Model;
 using Project1.Library.Entities;
@@ -106,16 +107,29 @@ namespace Project1.WebApp.Controllers
         // GET: CustomerController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            //get cust by id
+            CustomerEntity customer = Repo.GetById(id);
+            var viewModel = new CustomerViewModel
+            {
+                Id = customer.CustomerId,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                UserName = customer.UserName
+            };
+
+            return View(viewModel);
         }
 
         // POST: CustomerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, [BindNever]IFormCollection collection)
         {
             try
             {
+                Repo.Delete(id);
+                Repo.Save();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
