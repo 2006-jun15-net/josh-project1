@@ -40,15 +40,6 @@ jobs:
   - task: VSBuild@1
     inputs:
       solution: '**\*.sln'
-
-  - task: SonarCloudAnalyze@1
-    displayName: Run Sonarcloud analysis
-
-  - task: SonarCloudPublish@1
-    displayName: Publish Sonarcloud result
-    inputs:
-      pollingTimeoutSec: '300'
-
   - task: VSTest@2
     inputs:
       testSelector: 'testAssemblies'
@@ -61,7 +52,14 @@ jobs:
       testRunTitle: 'windows'
       platform: 'Any CPU'
       configuration: 'Release'
+  - task: SonarCloudAnalyze@1
+    displayName: Run Sonarcloud analysis
 
+  - task: SonarCloudPublish@1
+    displayName: Publish Sonarcloud result
+    inputs:
+      pollingTimeoutSec: '300'
+      
   - script: dotnet publish -c Release -o ./publish
     displayName: dotnet publish
     workingDirectory: $(solutionPath)
