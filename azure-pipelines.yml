@@ -17,6 +17,7 @@ jobs:
   pool:
     vmImage: 'windows-latest'
   steps:
+  
   - task: NuGetCommand@2
     inputs:
       command: 'restore'
@@ -32,18 +33,14 @@ jobs:
       projectKey: '2006-jun15-net_josh-project1'
       projectName: 'Josh Project 1'
       projectVersion: '0.5'
+      extraProperties: |
+        sonar.exclusions=**/lib/**
+        sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
+        sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*/coverage.opencover.xml
 
   - task: VSBuild@1
     inputs:
       solution: '**\*.sln'
-
-  - task: SonarCloudAnalyze@1
-    displayName: Run Sonarcloud analysis
-
-  - task: SonarCloudPublish@1
-    displayName: Publish Sonarcloud result
-    inputs:
-      pollingTimeoutSec: '300'
 
   - task: VSTest@2
     inputs:
@@ -58,14 +55,24 @@ jobs:
       platform: 'Any CPU'
       configuration: 'Release'
 
-  # - script: dotnet publish -c Release -o ../publish
-  #   displayName: dotnet publish
-  #   workingDirectory: $(solutionPath)
+  - task: SonarCloudAnalyze@1
+    displayName: Run Sonarcloud analysis
 
-  # - task: AzureRmWebAppDeployment@4
-  #   inputs:
-  #     ConnectionType: 'AzureRM'
-  #     azureSubscription: 'Azure subscription 1(e8660cf1-4aa2-42f9-a6c8-6ded191f7438)'
-  #     appType: 'webApp'
-  #     WebAppName: 'bertrand-proj1'
-  #     packageForLinux: '$(System.DefaultWorkingDirectory)/publish'
+  - task: SonarCloudPublish@1
+    displayName: Publish Sonarcloud result
+    inputs:
+      pollingTimeoutSec: '300'
+
+  - script: dotnet publish -c Release -o ./publish
+    displayName: dotnet publish
+    workingDirectory: $(solutionPath)
+
+  - task: AzureRmWebAppDeployment@4
+    displayName: Azure App Deployment
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: 'Azure subscription 1(e8660cf1-4aa2-42f9-a6c8-6ded191f7438)'
+      appType: 'webApp'
+      WebAppName: 'bertrand-proj1'
+      packageForLinux: '$(System.DefaultWorkingDirectory)/publish'
