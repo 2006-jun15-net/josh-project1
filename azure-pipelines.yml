@@ -17,6 +17,7 @@ jobs:
   pool:
     vmImage: 'windows-latest'
   steps:
+  
   - task: NuGetCommand@2
     inputs:
       command: 'restore'
@@ -40,6 +41,7 @@ jobs:
   - task: VSBuild@1
     inputs:
       solution: '**\*.sln'
+
   - task: VSTest@2
     inputs:
       testSelector: 'testAssemblies'
@@ -52,6 +54,7 @@ jobs:
       testRunTitle: 'windows'
       platform: 'Any CPU'
       configuration: 'Release'
+
   - task: SonarCloudAnalyze@1
     displayName: Run Sonarcloud analysis
 
@@ -59,12 +62,14 @@ jobs:
     displayName: Publish Sonarcloud result
     inputs:
       pollingTimeoutSec: '300'
-      
+
   - script: dotnet publish -c Release -o ./publish
     displayName: dotnet publish
     workingDirectory: $(solutionPath)
 
   - task: AzureRmWebAppDeployment@4
+    displayName: Azure App Deployment
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     inputs:
       ConnectionType: 'AzureRM'
       azureSubscription: 'Azure subscription 1(e8660cf1-4aa2-42f9-a6c8-6ded191f7438)'
