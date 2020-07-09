@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Project1.DataAccess;
 using Project1.DataAccess.Model;
 
 namespace Project1.WebApp
@@ -28,6 +29,8 @@ namespace Project1.WebApp
         {
             services.AddDbContext<project1Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+
+            services.AddScoped<CustomerRepository>();
 
             services.AddControllersWithViews();
         }
