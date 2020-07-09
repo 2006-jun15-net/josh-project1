@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Project1.DataAccess;
+using Project1.DataAccess.Model;
 using Project1.Library.Entities;
 using Project1.WebApp.ViewModels;
 
@@ -54,15 +55,30 @@ namespace Project1.WebApp.Controllers
         // POST: CustomerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create([Bind("FirstName", "LastName", "UserName")]CustomerViewModel viewModel)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    string FirstName, LastName, UserName;
+                    CustomerEntity customer = new CustomerEntity
+                    (
+                        FirstName = viewModel.FirstName,
+                        LastName = viewModel.LastName,
+                        UserName = viewModel.UserName
+                    ) ;
+                        
+                    Repo.Insert(customer);
+                    Repo.Save();
+
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(viewModel);
             }
             catch
             {
-                return View();
+                return View(viewModel);
             }
         }
 
