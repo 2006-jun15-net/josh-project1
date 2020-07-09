@@ -34,7 +34,15 @@ namespace Project1.WebApp.Controllers
         // GET: CustomerController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            CustomerEntity customer = Repo.GetById(id);
+            var viewModel = new CustomerViewModel
+            {
+                Id = customer.CustomerId,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                UserName = customer.UserName
+            };
+            return View(viewModel);
         }
 
         // GET: CustomerController/Create
