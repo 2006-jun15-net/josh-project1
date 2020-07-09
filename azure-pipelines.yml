@@ -32,6 +32,7 @@ jobs:
       projectKey: '2006-jun15-net_josh-project1'
       projectName: 'Josh Project 1'
       projectVersion: '0.5'
+      extraProperties: sonar.exclusions=**/lib/**
 
   - task: VSBuild@1
     inputs:
