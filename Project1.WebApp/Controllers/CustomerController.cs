@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Project1.DataAccess;
+using Project1.DataAccess.Repositories;
 using Project1.DataAccess.Model;
 using Project1.Library.Entities;
 using Project1.WebApp.ViewModels;

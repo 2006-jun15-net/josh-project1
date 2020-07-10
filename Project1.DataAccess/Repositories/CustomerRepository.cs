@@ -6,7 +6,7 @@ using Project1.Library.Entities;
 using Project1.DataAccess.Model;
 using Project0.DataAccess;
 
-namespace Project1.DataAccess
+namespace Project1.DataAccess.Repositories
 {
     public class CustomerRepository
     {

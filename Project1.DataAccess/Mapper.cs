@@ -48,7 +48,7 @@ namespace Project0.DataAccess
         /// </summary>
         /// <param name="store"></param>
         /// <returns></returns>
-        public static StoreEntity MapDbEntryToStoreLocation(Store store)
+        public static StoreEntity MapDbEntryToStore(Store store)
         {
             //int storeId;
             //string storeName, storeAddress;

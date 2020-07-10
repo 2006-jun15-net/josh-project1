@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Project1.DataAccess;
+using Project1.DataAccess.Repositories;
 using Project1.DataAccess.Model;
 
 namespace Project1.WebApp
@@ -27,10 +27,13 @@ namespace Project1.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //DbContext
             services.AddDbContext<project1Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
 
+            //Repository services
             services.AddScoped<CustomerRepository>();
+            services.AddScoped<StoreRepository>();
 
             services.AddControllersWithViews();
         }

@@ -25,8 +25,4 @@
     <ProjectReference Include="..\Project1.Library\Project1.Library.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Store\" />
-  </ItemGroup>
-
 </Project>
