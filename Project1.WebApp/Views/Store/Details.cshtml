@@ -1,0 +1,52 @@
+﻿@model Project1.WebApp.ViewModels.StoreViewModel
+
+    <div>
+        <h4>StoreViewModel</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.StoreName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.StoreName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.StoreAddress)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.StoreAddress)
+            </dd>
+        </dl>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Inventory)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+               @foreach (var item in Model.Inventory)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProdDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProdPrice)
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>

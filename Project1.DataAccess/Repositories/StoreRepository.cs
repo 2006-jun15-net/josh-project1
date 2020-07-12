@@ -1,4 +1,5 @@
-﻿using Project0.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using Project0.DataAccess;
 using Project1.DataAccess.Model;
 using Project1.Library.Entities;
 using System;
@@ -29,7 +30,9 @@ namespace Project1.DataAccess.Repositories
 
         public IEnumerable<StoreEntity> GetAll(string search)
         {
-            IQueryable<Store> items = _dbContext.Store;
+            IQueryable<Store> items = _dbContext.Store
+                .Include(i => i.StoreInventory)
+                .ThenInclude(p => p.Product);
 
             if(search != null)
             {
@@ -39,10 +42,10 @@ namespace Project1.DataAccess.Repositories
             return (IEnumerable<StoreEntity>)items.Select(Mapper.MapDbEntryToStore);
         }
 
-        //public StoreEntity GetById(object id)
-        //{
-
-        //}
+        public StoreEntity GetById(object id)
+        {
+            return Mapper.MapDbEntryToStore(_dbContext.Store.Find(id));
+        }
 
         public void Save()
         {

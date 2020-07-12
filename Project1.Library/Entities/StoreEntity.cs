@@ -21,8 +21,10 @@ namespace Project1.Library.Entities
         /// Address of store. Must be Unique. 
         /// </summary>
         public string StoreAddress { get; set; }
-        
-        //Dictionary<Product, int> StoreInventory { get; set; }
+        /// <summary>
+        /// Dictionary of items and quantities the store has in stock
+        /// </summary>
+        public List<ProductEntity> StoreInventory { get; set; }
 
         /// <summary>
         /// Constructor for Store object from DB. 
@@ -30,11 +32,13 @@ namespace Project1.Library.Entities
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="address"></param>
-        public StoreEntity(int id, string name, string address)
+        /// <param name="inv"></param>
+        public StoreEntity(int id, string name, string address, List<ProductEntity> inv)//Dictionary of Inventory must be added here.
         {
             StoreId = id;
             StoreName = name;
             StoreAddress = address;
+            StoreInventory = inv;
         }
 
         /// <summary>
@@ -42,8 +46,9 @@ namespace Project1.Library.Entities
         /// </summary>
         /// <param name="name"></param>
         /// <param name="address"></param>
-        public StoreEntity(string name, string address)
+        public StoreEntity(int id, string name, string address)
         {
+            StoreId = id;
             StoreName = name;
             StoreAddress = address;
         }

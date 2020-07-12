@@ -16,11 +16,11 @@ namespace Project1.Library.Entities
         /// <summary>
         /// Name or description of product.
         /// </summary>
-        public string ProductDescription { get; set; }
+        public string ProdDescription { get; set; }
         /// <summary>
         /// Price of product.
         /// </summary>
-        public double ProductPrice {get; set;}
+        public double ProdPrice {get; set;}
 
         /// <summary>
         /// Constructor for product pulled from DB.
@@ -31,8 +31,8 @@ namespace Project1.Library.Entities
         public ProductEntity(int id, string description, double price)
         {
             ProductId = id;
-            ProductDescription = description;
-            ProductPrice = price;
+            ProdDescription = description;
+            ProdPrice = price;
         }
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace Project1.Library.Entities
         /// <param name="price"></param>
         public ProductEntity(string description, double price)
         {
-            ProductDescription = description;
-            ProductPrice = price;
+            ProdDescription = description;
+            ProdPrice = price;
         }
 
     }
