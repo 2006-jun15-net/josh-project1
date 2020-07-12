@@ -22,6 +22,10 @@ namespace Project1.Library.Entities
         /// </summary>
         public double ProdPrice {get; set;}
 
+        public ProductEntity()
+        {
+
+        }
         /// <summary>
         /// Constructor for product pulled from DB.
         /// </summary>

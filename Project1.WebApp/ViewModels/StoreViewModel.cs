@@ -15,6 +15,6 @@ namespace Project1.WebApp.ViewModels
         [Display(Name = "Address")]
         public string StoreAddress { get; set; }
         [Display(Name = "Inventory")]
-        public List<ProductEntity> Inventory { get; set; }
+        public Dictionary<ProductEntity, int> Inventory { get; set; }
     }   
 }

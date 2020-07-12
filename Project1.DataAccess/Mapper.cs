@@ -50,32 +50,24 @@ namespace Project0.DataAccess
         /// <returns></returns>
         public static StoreEntity MapDbEntryToStore(Store store)
         {
-            return new StoreEntity
-            (
-                store.StoreId,
-                store.StoreName,
-                store.StoreAddress,
-                store.StoreInventory.Select(MapInventoryToStore)
-                                          .ToList() //also get the inventory for the store
-             );
+            return null;
         }
 
-
-        public static ProductEntity MapInventoryToStore(StoreInventory inventory, int id)
-        {
-            //Dictionary<string, int> inv = new Dictionary<string, int>
-            //{
-            //    { inventory.Product.ProductDescription, inventory.Quantity }
-            //};
+        //public static ProductEntity MapInventoryToStore(StoreInventory inventory, int id)
+        //{
+        //    //Dictionary<string, int> inv = new Dictionary<string, int>
+        //    //{
+        //    //    { inventory.Product.ProductDescription, inventory.Quantity }
+        //    //};
             
-            return new ProductEntity
-            (
-                inventory.Product.ProductId,
-                inventory.Product.ProductDescription,
-                (double)inventory.Product.ProductPrice
-            );
+        //    return new ProductEntity
+        //    (
+        //        inventory.Product.ProductId,
+        //        inventory.Product.ProductDescription,
+        //        (double)inventory.Product.ProductPrice
+        //    );
             
-        }
+        //}
 
         //public static Model.Store MapStoreLocationToDbEntry(Library.StoreLocation store)
         //{

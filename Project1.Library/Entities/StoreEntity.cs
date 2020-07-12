@@ -24,8 +24,12 @@ namespace Project1.Library.Entities
         /// <summary>
         /// Dictionary of items and quantities the store has in stock
         /// </summary>
-        public List<ProductEntity> StoreInventory { get; set; }
+        public Dictionary<ProductEntity, int> StoreInventory { get; set; }
 
+        public StoreEntity()
+        {
+
+        }
         /// <summary>
         /// Constructor for Store object from DB. 
         /// </summary>
@@ -33,7 +37,7 @@ namespace Project1.Library.Entities
         /// <param name="name"></param>
         /// <param name="address"></param>
         /// <param name="inv"></param>
-        public StoreEntity(int id, string name, string address, List<ProductEntity> inv)//Dictionary of Inventory must be added here.
+        public StoreEntity(int id, string name, string address, Dictionary<ProductEntity, int> inv)//Dictionary of Inventory must be added here.
         {
             StoreId = id;
             StoreName = name;

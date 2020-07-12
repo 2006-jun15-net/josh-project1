@@ -18,33 +18,56 @@ namespace Project1.DataAccess.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        //public void Insert(StoreEntity obj)
-        //{
-
-        //}
-
-        //public void Delete(object id)
-        //{
-
-        //}
-
         public IEnumerable<StoreEntity> GetAll(string search)
         {
-            IQueryable<Store> items = _dbContext.Store
+            IQueryable<Store> stores = _dbContext.Store
                 .Include(i => i.StoreInventory)
                 .ThenInclude(p => p.Product);
 
-            if(search != null)
-            {
-                items = items.Where(s => s.StoreName.Contains(search));
-            }
+            //if(search != null)
+            //{
+            //    stores = stores.Where(s => s.StoreName.Contains(search));
+            //}
+            return stores.Select(s => new StoreEntity {
+                StoreId = s.StoreId,
+                StoreName = s.StoreName,
+                StoreAddress = s.StoreAddress
+            });
 
-            return (IEnumerable<StoreEntity>)items.Select(Mapper.MapDbEntryToStore);
+            //return (IEnumerable<StoreEntity>)stores.Select(Mapper.MapDbEntryToStore);
         }
 
-        public StoreEntity GetById(object id)
+        public StoreEntity GetById(int id)
         {
-            return Mapper.MapDbEntryToStore(_dbContext.Store.Find(id));
+            var store = _dbContext.Store.Find(id);
+
+            return new StoreEntity
+            {
+                StoreId = store.StoreId,
+                StoreName = store.StoreName,
+                StoreAddress = store.StoreAddress,
+                StoreInventory = GetStoreInventory(id)
+            };
+        }
+
+        public Dictionary<ProductEntity, int> GetStoreInventory(int id)
+        {
+            var inv = _dbContext.Store
+                .Include(i => i.StoreInventory)
+                .First(i => i.StoreId == id);
+            Dictionary<ProductEntity, int> inventory = new Dictionary<ProductEntity, int>();
+            foreach(var item in inv.StoreInventory)
+            {
+                var product = _dbContext.Product.Find(item.ProductId);
+                ProductEntity prod = new ProductEntity
+                {
+                    ProductId = product.ProductId,
+                    ProdDescription = product.ProductDescription,
+                    ProdPrice = (double)product.ProductPrice
+                };
+                inventory.Add(prod, item.Quantity);
+            }
+            return inventory;
         }
 
         public void Save()

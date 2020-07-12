@@ -31,16 +31,30 @@
                         @Html.DisplayNameFor(model => model.Inventory)
                     </th>
                 </tr>
+                <tr>
+                    <th>
+                        Product Description
+                    </th>
+                    <th>
+                        Product Quantity
+                    </th>
+                    <th>
+                        Product Price
+                    </th>
+                </tr>
             </thead>
             <tbody>
-               @foreach (var item in Model.Inventory)
+               @foreach (var item in Model.Inventory.Keys)
                 {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ProdDescription)
+                        @item.ProdDescription
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ProdPrice)
+                        @Model.Inventory[item]
+                    </td>
+                    <td>
+                       @item.ProdPrice
                     </td>
                 </tr>
                 }
