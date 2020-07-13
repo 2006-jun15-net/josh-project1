@@ -54,6 +54,11 @@ namespace Project1.DataAccess.Repositories
             _dbContext.SaveChanges();
         }
 
+        //public IEnumerable<OrderEntity> GetCustomerOrders(int id)
+        //{
+            
+        //}
+
         //public void Update(Customer obj)
         //{
         //    throw new System.NotImplementedException();

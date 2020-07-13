@@ -4,12 +4,16 @@ using System.Text;
 
 namespace Project1.Library.Entities
 {
-    class OrderEntity
+    public class OrderEntity
     {
         /// <summary>
         /// 
         /// </summary>
         public int OrderId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime OrderDate { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -25,11 +29,9 @@ namespace Project1.Library.Entities
         public Dictionary<ProductEntity, int> Orders { get; set; }
 
 
-        public OrderEntity(int orderid, int storeid, int custid)
+        public OrderEntity()
         {
-            OrderId = orderid;
-            StoreId = storeid;
-            CustomerId = custid;
+            
         }
 
     }

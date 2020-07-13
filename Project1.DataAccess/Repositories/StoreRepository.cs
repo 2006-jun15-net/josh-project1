@@ -24,17 +24,13 @@ namespace Project1.DataAccess.Repositories
                 .Include(i => i.StoreInventory)
                 .ThenInclude(p => p.Product);
 
-            //if(search != null)
-            //{
-            //    stores = stores.Where(s => s.StoreName.Contains(search));
-            //}
-            return stores.Select(s => new StoreEntity {
+            return stores.Select(s => new StoreEntity 
+            {
                 StoreId = s.StoreId,
                 StoreName = s.StoreName,
                 StoreAddress = s.StoreAddress
             });
 
-            //return (IEnumerable<StoreEntity>)stores.Select(Mapper.MapDbEntryToStore);
         }
 
         public StoreEntity GetById(int id)

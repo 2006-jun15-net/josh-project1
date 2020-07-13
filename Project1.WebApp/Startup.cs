@@ -34,6 +34,7 @@ namespace Project1.WebApp
             //Repository services
             services.AddScoped<CustomerRepository>();
             services.AddScoped<StoreRepository>();
+            services.AddScoped<OrderRepository>();
 
             services.AddControllersWithViews();
         }

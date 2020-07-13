@@ -22,7 +22,7 @@ namespace Project1.WebApp.Controllers
         }
 
         // GET: OrderController/Create
-        public ActionResult Create()
+        public ActionResult Create()//Place new order
         {
             return View();
         }

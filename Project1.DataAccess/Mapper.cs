@@ -43,36 +43,6 @@ namespace Project0.DataAccess
                 UserName = customer.UserName
             };
         }
-        /// <summary>
-        /// Maps a Store entry from the database to a StoreLocation object
-        /// </summary>
-        /// <param name="store"></param>
-        /// <returns></returns>
-        public static StoreEntity MapDbEntryToStore(Store store)
-        {
-            return null;
-        }
-
-        //public static ProductEntity MapInventoryToStore(StoreInventory inventory, int id)
-        //{
-        //    //Dictionary<string, int> inv = new Dictionary<string, int>
-        //    //{
-        //    //    { inventory.Product.ProductDescription, inventory.Quantity }
-        //    //};
-            
-        //    return new ProductEntity
-        //    (
-        //        inventory.Product.ProductId,
-        //        inventory.Product.ProductDescription,
-        //        (double)inventory.Product.ProductPrice
-        //    );
-            
-        //}
-
-        //public static Model.Store MapStoreLocationToDbEntry(Library.StoreLocation store)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         /// <summary>
         /// Maps a Product database entry to a Product object

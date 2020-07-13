@@ -15,6 +15,13 @@ namespace Project1.Library.Entities
         public string UserName { get; set; }
 
         /// <summary>
+        /// Zero-Arg constructor for Customer
+        /// </summary>
+        public CustomerEntity()
+        {
+
+        }
+        /// <summary>
         /// Constructor for a customer from the DB. Includes all fields
         /// </summary>
         /// <param name="id"></param>
