@@ -16,8 +16,8 @@ jobs:
 - job: 
   pool:
     vmImage: 'windows-latest'
-  steps:
   
+  steps:
   - task: NuGetCommand@2
     inputs:
       command: 'restore'
@@ -36,11 +36,19 @@ jobs:
       extraProperties: |
         sonar.exclusions=**/lib/**
         sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
-        sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*/coverage.opencover.xml
+        sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/*/coverage.opencover.xml
 
   - task: VSBuild@1
     inputs:
       solution: '**\*.sln'
+
+  - task: DotNetCoreCLI@2
+    displayName: dotnet test
+    inputs:
+      command: 'test'
+      projects: '$(solutionPath)'
+      arguments: '-c Release --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura,opencover'
+      testRunTitle: 'ubuntu'
 
   - task: VSTest@2
     inputs:
