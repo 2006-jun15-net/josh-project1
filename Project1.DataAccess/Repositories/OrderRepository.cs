@@ -21,6 +21,17 @@ namespace Project1.DataAccess.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
+        public IEnumerable<OrderEntity> GetOrders()
+        {
+            IQueryable<Orders> orders = _dbContext.Orders;
+
+            return orders.Select(o => new OrderEntity
+            {
+                OrderId = o.OrderId,
+                OrderDate = o.OrderDate
+            });
+        }
+
         public IEnumerable<OrderEntity> GetAll()
         {
             IQueryable<OrderHistory> orders = _dbContext.OrderHistory

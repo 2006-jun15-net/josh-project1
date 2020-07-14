@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Project1.DataAccess.Model;
 using Project1.DataAccess.Repositories;
 using Project1.Library.Entities;
 using Project1.WebApp.ViewModels;
@@ -28,10 +27,28 @@ namespace Project1.WebApp.Controllers
             return View();
         }
 
+        public ActionResult ListOrders()
+        {
+            IEnumerable<OrderEntity> custOrders = Repo.GetOrders();
+            IEnumerable<OrderViewModel> viewModels = custOrders.Select(x => new OrderViewModel
+            {
+                OrderId = x.OrderId,
+                OrderDate = x.OrderDate
+            });
+            return View(viewModels);
+        }
+
         public ActionResult SelectProducts(int StoreId, int CustomerId)
         {
-            var viewModel = new OrderViewModel { StoreId = StoreId, CustomerId = CustomerId};
-            return View(viewModel);
+            if (ModelState.IsValid)
+            {
+                var viewModel = new OrderViewModel { StoreId = StoreId, CustomerId = CustomerId };
+                return View(viewModel);
+            }
+            else
+            {
+                return RedirectToAction(nameof(Create));
+            }
         }
 
         // POST: OrderController/Create
