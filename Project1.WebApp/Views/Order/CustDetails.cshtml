@@ -30,7 +30,43 @@
                 @Html.DisplayFor(model => model.StoreId)
             </dd>
         </dl>
-       
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Product Id
+                    </th>
+                    <th>
+                        Product Description
+                    </th>
+                    <th>
+                        Product Quantity
+                    </th>
+                    <th>
+                        Product Price
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Orders.Keys)
+                {
+                    <tr>
+                        <td>
+                            @item.ProductId
+                        </td>
+                        <td>
+                            @item.ProdDescription
+                        </td>
+                        <td>
+                            @Model.Orders[item]
+                        </td>
+                        <td>
+                            @item.ProdPrice
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 <div>
     <a asp-action="Index">Back to Orders Menu</a>

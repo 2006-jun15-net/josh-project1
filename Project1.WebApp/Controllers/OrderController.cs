@@ -90,6 +90,20 @@ namespace Project1.WebApp.Controllers
             return View(viewModel);
         }
 
+        public ActionResult StoreDetails(int id)
+        {
+            OrderEntity order = (OrderEntity)Repo.GetStoreHistoryById(id);
+            var viewModel = new OrderViewModel
+            {
+                OrderId = order.OrderId,
+                OrderDate = order.OrderDate,
+                StoreId = order.StoreId,
+                CustomerId = order.CustomerId,
+                Orders = order.Orders
+            };
+            return View(viewModel);
+        }
+
         //GET: OrderController/DisplayCustOrders
         public ActionResult DisplayCustOrders()
         {
