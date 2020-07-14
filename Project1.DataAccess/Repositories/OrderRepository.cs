@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Project1.DataAccess.Model;
 using Project1.Library.Entities;
 using System;
@@ -34,34 +35,36 @@ namespace Project1.DataAccess.Repositories
             });
         }
 
-        public IEnumerable<OrderEntity> GetStoreHistoryById(int id)
+        public OrderEntity GetStoreHistoryById(int id)
         {
             var storeOrders = _dbContext.OrderHistory
-                .Include(o => o.Order);
-
-            return storeOrders.Select(s => new OrderEntity
+                .Include(o => o.Order)
+                .First(o => o.StoreId == id);
+            OrderEntity orderResults;
+            return orderResults = new OrderEntity
             {
-                OrderId = s.OrderId,
-                OrderDate = s.Order.OrderDate,
-                StoreId = s.StoreId,
-                CustomerId = s.CustomerId,
-                Orders = GetOrderContents(s.OrderId)
-            });
+                OrderId = storeOrders.OrderId,
+                OrderDate = storeOrders.Order.OrderDate,
+                StoreId = storeOrders.StoreId,
+                CustomerId = storeOrders.CustomerId,
+                Orders = GetOrderContents(storeOrders.OrderId)
+            };
         }
 
-        public IEnumerable<OrderEntity> GetCustomerHistoryById(int id)
+        public OrderEntity GetCustomerHistoryById(int id)
         {
             var custOrders = _dbContext.OrderHistory
-                .Include(o => o.Order);
-
-            return custOrders.Select(s => new OrderEntity
+                .Include(o => o.Order)
+                .First(o => o.CustomerId == id);
+            OrderEntity orderResults;
+            return orderResults = new OrderEntity
             {
-                OrderId = s.OrderId,
-                OrderDate = s.Order.OrderDate,
-                StoreId = s.StoreId,
-                CustomerId = s.CustomerId,
-                Orders = GetOrderContents(s.OrderId)
-            });
+                OrderId = custOrders.OrderId,
+                OrderDate = custOrders.Order.OrderDate,
+                StoreId = custOrders.StoreId,
+                CustomerId = custOrders.CustomerId,
+                Orders = GetOrderContents(custOrders.OrderId)
+            };
         }
 
         private Dictionary<ProductEntity, int> GetOrderContents(int id)
@@ -87,10 +90,62 @@ namespace Project1.DataAccess.Repositories
 
         }
 
-        //insert
-        public void InsertOrder()
+        public ProductEntity GetProduct(int prodId)
         {
+            var product = _dbContext.Product
+                .Find(prodId);
 
+            return new ProductEntity
+            {
+                ProductId = product.ProductId,
+                ProdDescription = product.ProductDescription,
+                ProdPrice = (double)product.ProductPrice
+            };
+
+        }
+
+        //insert
+        public void InsertOrder(OrderEntity newOrder, int prodId, int qty)
+        {
+            try
+            {
+                var order = new Orders
+                {
+                    OrderDate = newOrder.OrderDate
+                };
+
+                _dbContext.Add(order);
+                Save();
+
+                var lastId = _dbContext.Orders.Max(item => item.OrderId);
+                var orderHist = new OrderHistory
+                {
+                    StoreId = newOrder.StoreId,
+                    CustomerId = newOrder.CustomerId,
+                    OrderId = lastId,
+                    ProductId = prodId,
+                    Quantity = qty,
+                    Customer = new Customer
+                    {
+                        CustomerId = newOrder.CustomerId
+                    },
+                    Store = new Store
+                    {
+                        StoreId = newOrder.StoreId
+                    },
+                    Order = new Orders
+                    {
+                        OrderId = lastId
+                    }
+                };
+                _dbContext.OrderHistory.Add(orderHist);
+                Save();
+            }
+            catch (Exception)
+            {
+
+            }
+            
         }
         //save
         public void Save()

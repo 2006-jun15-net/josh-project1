@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Project1.DataAccess.Model;
 using Project1.DataAccess.Repositories;
 using Project1.Library.Entities;
 using Project1.WebApp.ViewModels;
@@ -29,24 +28,49 @@ namespace Project1.WebApp.Controllers
             return View();
         }
 
+        public ActionResult SelectProducts(int StoreId, int CustomerId)
+        {
+            var viewModel = new OrderViewModel { StoreId = StoreId, CustomerId = CustomerId};
+            return View(viewModel);
+        }
+
         // POST: OrderController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Checkout(int StoreId, int CustId, int prodID, int prodQty)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                //Validate data entered.
+                
+
+                OrderEntity order = new OrderEntity
+                {
+                    OrderDate = DateTime.Now,
+                    StoreId = StoreId,
+                    CustomerId = CustId
+                };
+
+                Repo.InsertOrder(order, prodID, prodQty);
+
+                return RedirectToAction(nameof(Create));
             }
-            catch
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
 
-        public ActionResult Details(int id)
+        public ActionResult CustDetails(int id)
         {
-            return View();
+            OrderEntity order = (OrderEntity)Repo.GetCustomerHistoryById(id);
+            var viewModel = new OrderViewModel
+            {
+                OrderId = order.OrderId,
+                OrderDate = order.OrderDate,
+                StoreId = order.StoreId,
+                CustomerId = order.CustomerId,
+                Orders = order.Orders
+            };
+            return View(viewModel);
         }
 
         //GET: OrderController/DisplayCustOrders

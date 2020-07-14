@@ -1,0 +1,36 @@
+﻿@model Project1.WebApp.ViewModels.OrderViewModel
+
+<h4>Place Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SelectProducts">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*
+        Form will get the UserID and StoreID
+        Form will then display only the products for the selected store
+
+        User can select the products and quantity, and then submit the order.
+        Order will be processed, removed purchased items from store inventory
+            *@
+            <p>Select a valid Customer ID and Store ID</p>
+            <div class="form-group">@*Store selection*@
+                <label asp-for="StoreId" class="control-label"></label>
+                <input asp-for="StoreId" class="form-control" />
+                <span asp-validation-for="StoreId" class="text-danger"></span>
+            </div>
+            <div class="form-group">@*Customer Selection*@
+                <label asp-for="CustomerId" class="control-label"></label>
+                <input asp-for="CustomerId" class="form-control" />
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
+            </div>
+
+            <input type="submit" name="submit" value="Select Customer/Store" />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to Order Menu</a>
+</div>
+

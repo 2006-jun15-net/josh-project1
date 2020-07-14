@@ -1,0 +1,41 @@
+﻿@model Project1.WebApp.ViewModels.OrderViewModel
+
+<h4>Select products to add to cart</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="@Model.StoreId" class="control-label"></label>
+                <p>@Html.DisplayFor(model => model.StoreId)</p>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.CustomerId" class="control-label"></label>
+                <p>@Html.DisplayFor(model => model.CustomerId)</p>
+            </div>
+
+            @*Display all products for the selected store*@
+            <div class="form-group">
+                <label name="prodId" class="control-label"></label>
+                <input name="prodId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label name="prodQty" class="control-label"></label>
+                <input name="prodQty" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" value="@Model.StoreId" name="StoreId" />
+                <input type="hidden" value="@Model.CustomerId " name="CustId" />
+                @*<input asp-action="SelectProducts" type="submit" value="Add to Cart" class="btn btn-primary" />*@
+                <input asp-action="Checkout" type="submit" value="Submit Order" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to Order Menu</a>
+</div>
+

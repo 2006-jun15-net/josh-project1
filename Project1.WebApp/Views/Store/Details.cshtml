@@ -1,7 +1,7 @@
 ﻿@model Project1.WebApp.ViewModels.StoreViewModel
 
     <div>
-        <h4>StoreViewModel</h4>
+        <h4>Store Details</h4>
         <hr />
         <dl class="row">
             <dt class="col-sm-2">
@@ -24,14 +24,16 @@
             </dd>
         </dl>
 
+        <h3>
+            Shop Inventory
+        </h3>
+
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Inventory)
+                        Product Id
                     </th>
-                </tr>
-                <tr>
                     <th>
                         Product Description
                     </th>
@@ -47,6 +49,9 @@
                @foreach (var item in Model.Inventory.Keys)
                 {
                 <tr>
+                    <td>
+                        @item.ProductId
+                    </td>
                     <td>
                         @item.ProdDescription
                     </td>
